@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "run_id": "20261005-012003_dense_s1338",
+  "experiment": "e1_main",
+  "config_name": "main",
+  "variant": "dense",
+  "seed": 1338,
+  "group": "dense",
+  "capacity_factor": null,
+  "dispatch": "batched",
+  "overrides": [],
+  "status": "completed",
+  "started_at": "2026-10-05T01:20:03",
+  "finished_at": "2026-10-05T01:24:28",
+  "resumed_from_step": []
+}

@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "config_name": "main",
+  "created_at": "2026-10-05T12:02:46",
+  "points": [
+    {
+      "capacity_factor": 0.75,
+      "seed": 1337,
+      "run_dir": "main/e2_capacity/20261005-105624_switch_cf0.75_s1337"
+    },
+    {
+      "capacity_factor": 1.0,
+      "seed": 1337,
+      "run_dir": "main/e2_capacity/20261005-115602_switch_cf1_s1337"
+    },
+    {
+      "capacity_factor": 1.25,
+      "seed": 1337,
+      "run_dir": "main/e1_main/20261005-004357_switch_s1337",
+      "reused_from": "e1_main"
+    },
+    {
+      "capacity_factor": 2.0,
+      "seed": 1337,
+      "run_dir": "main/e2_capacity/20261005-114040_switch_cf2_s1337"
+    }
+  ]
+}

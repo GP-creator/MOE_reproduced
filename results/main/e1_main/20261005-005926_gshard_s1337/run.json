@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "run_id": "20261005-005926_gshard_s1337",
+  "experiment": "e1_main",
+  "config_name": "main",
+  "variant": "gshard",
+  "seed": 1337,
+  "group": "gshard",
+  "capacity_factor": 1.25,
+  "dispatch": "batched",
+  "overrides": [],
+  "status": "completed",
+  "started_at": "2026-10-05T00:59:26",
+  "finished_at": "2026-10-05T01:07:46",
+  "resumed_from_step": []
+}

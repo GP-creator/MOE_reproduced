@@ -1,0 +1,13 @@
+# Install torch FIRST with the CUDA 12.8 index (Blackwell / sm_120 needs cu128+):
+#   pip install torch==2.11.0 --index-url https://download.pytorch.org/whl/cu128
+# then: pip install -r requirements.txt
+torch==2.11.0
+numpy==2.5.3
+datasets==5.0.1
+tokenizers==0.23.2
+pyyaml==6.0.3
+pytest==9.1.1
+streamlit==1.65.0
+plotly==7.1.0
+pandas==3.0.6
+matplotlib==3.11.2

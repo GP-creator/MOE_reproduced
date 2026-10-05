@@ -1,0 +1,79 @@
+{
+  "schema_version": 1,
+  "run_id": "20261005-122540_placement",
+  "config_name": "main",
+  "created_at": "2026-10-05T12:25:41",
+  "D_values": [
+    2,
+    4,
+    8
+  ],
+  "policies": [
+    "round_robin",
+    "greedy"
+  ],
+  "bytes_per_element": 2,
+  "include_backward_default": true,
+  "device_tflops_default": 57.329872530731954,
+  "device_tflops_source": "measured roofline main/e5_profile/20261005-120250_profile",
+  "link_gbps_default": 64.0,
+  "link_gbps_source": "assumption (--link-gbps; default 64 GB/s ~ PCIe 5.0 x16 per direction)",
+  "calib_frac": 0.5,
+  "token_home": "floor(t * D / N) (data-parallel contiguous shards)",
+  "greedy": "LPT on calibration-step load, cap ceil(E/D) experts per device, evaluated on held-out steps",
+  "a2a_model": "dispatch + combine per layer: a2a_fwd = 2 * offdevice * d_model * bytes; fwd_bwd = 2 * a2a_fwd",
+  "traces": [
+    {
+      "trace_dir": "main/traces/20261005-005926_gshard_s1337",
+      "variant": "gshard",
+      "source_run_id": "20261005-005926_gshard_s1337",
+      "n_steps": 25,
+      "n_calib_steps": 25,
+      "calibration_overlap": false,
+      "n_layers": 6,
+      "tokens_per_step": 8192,
+      "top_k": 2,
+      "n_routed": 16,
+      "n_shared": 0,
+      "d_model": 384,
+      "expert_width": 768,
+      "flops_per_assignment": 1179648.0,
+      "shared_flops_per_token": 0.0
+    },
+    {
+      "trace_dir": "main/traces/20261005-012428_switch_s1338",
+      "variant": "switch",
+      "source_run_id": "20261005-012428_switch_s1338",
+      "n_steps": 25,
+      "n_calib_steps": 25,
+      "calibration_overlap": false,
+      "n_layers": 6,
+      "tokens_per_step": 8192,
+      "top_k": 1,
+      "n_routed": 8,
+      "n_shared": 0,
+      "d_model": 384,
+      "expert_width": 1536,
+      "flops_per_assignment": 2359296.0,
+      "shared_flops_per_token": 0.0
+    },
+    {
+      "trace_dir": "main/traces/20261005-013139_deepseek_s1338",
+      "variant": "deepseek",
+      "source_run_id": "20261005-013139_deepseek_s1338",
+      "n_steps": 25,
+      "n_calib_steps": 25,
+      "calibration_overlap": false,
+      "n_layers": 6,
+      "tokens_per_step": 8192,
+      "top_k": 3,
+      "n_routed": 31,
+      "n_shared": 1,
+      "d_model": 384,
+      "expert_width": 384,
+      "flops_per_assignment": 589824.0,
+      "shared_flops_per_token": 589824.0
+    }
+  ],
+  "note": "simple analytical model, not a simulator. Simple analytical model, not a simulator. Experts of each MoE layer are placed on D devices; tokens are data-parallel sharded (contiguous blocks). Load imbalance sets the compute critical path (max over devices per layer), the dispatch+combine all-to-all sets communication (off-device assignments x d_model x bytes, x2 for backward), and expert memory is kept even (ceil(E/D) experts per device). This is a toy version of the compute / memory / communication trade-off that WSC-LLM explores when it co-designs wafer-scale hardware and placement: balancing compute (greedy placement) is bounded by memory per device, and spreading experts over more devices shrinks per-device compute but grows all-to-all traffic, so link bandwidth decides which resource limits the step. No topology, overlap, queueing or kernel efficiency."
+}

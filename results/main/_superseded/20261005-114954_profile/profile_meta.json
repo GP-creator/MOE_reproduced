@@ -1,0 +1,106 @@
+{
+  "schema_version": 1,
+  "run_id": "20261005-114954_profile",
+  "config_name": "main",
+  "created_at": "2026-10-05T11:49:54",
+  "d_model": 384,
+  "base_d_ff": 1536,
+  "dtype": "bf16-autocast (router fp32)",
+  "device_label": "RTX 5070 Ti Laptop GPU",
+  "mode": "full",
+  "warmup_iters": 10,
+  "repeats": 50,
+  "breakdown_repeats": 20,
+  "timer": "cuda_events",
+  "flops_model": {
+    "hidden_traffic": "unfused",
+    "include_autocast_weight_cast": true,
+    "dtype_bytes": 2,
+    "note": "compulsory traffic -> intensity is an upper bound"
+  },
+  "router_init": "random",
+  "plan": {
+    "mode": "full",
+    "tokens": [
+      1024,
+      2048,
+      4096,
+      8192,
+      16384,
+      32768,
+      65536
+    ],
+    "expert_tokens": 8192,
+    "skew_tokens": [
+      8192
+    ],
+    "cap_tokens": 8192,
+    "switch_experts": [
+      4,
+      8,
+      16,
+      32,
+      64
+    ],
+    "deepseek_experts": [
+      8,
+      16,
+      32,
+      64
+    ],
+    "warmup": 10,
+    "repeats": 50,
+    "breakdown_repeats": 20,
+    "trace_iters": 2,
+    "gemm_size": 8192,
+    "copy_mib": 1024,
+    "roof_repeats": 30,
+    "variants": [
+      "dense",
+      "switch",
+      "gshard",
+      "deepseek"
+    ],
+    "dispatch": [
+      "loop",
+      "batched"
+    ],
+    "passes": [
+      "fwd",
+      "fwd_bwd"
+    ],
+    "sweeps": [
+      "tokens",
+      "experts",
+      "capacity",
+      "skew",
+      "gemm",
+      "breakdown",
+      "trace",
+      "roofline"
+    ],
+    "cfs": [
+      0.75,
+      1.0,
+      1.25,
+      2.0
+    ],
+    "skew_strength": 0.3,
+    "trace_tokens": 8192
+  },
+  "experts_sweep_policy": "activated compute per token fixed at d_ff. switch: E experts of width d_ff, top-1 (total params grow with E, Switch Fig. 4). deepseek: fine-grained, total routed params 8*d_ff, width 8*d_ff/E, top-k=E/8, no shared expert.",
+  "skew_method": "x += mu, mu = pinv(W_r^T) @ (s * (z - mean z)), z_e = 1/(e+1): Zipf-shaped router-logit offset of strength s nats; realised imbalance is in each row's load_imbalance",
+  "gpu_state_policy": "queried after the first warmup and after the last timed loop of each group",
+  "trace_file": "main/e5_profile/20261005-114954_profile/profiler_trace.json",
+  "wall_time_s": 181.42689442634583,
+  "gpu_busy_before_run": {
+    "utilization_pct": 0.0,
+    "memory_used_mib": 0.0
+  },
+  "other_gpu_processes": {
+    "start": [],
+    "end": [],
+    "note": "other CUDA processes seen by nvidia-smi (contention check); a job that started and ended mid-run is not detected"
+  },
+  "note": "Single FFN layer only (no attention/norm/residual). fwd = inference forward under no_grad in eval mode; fwd_bwd = train-mode forward + backward of y (random dy) and the aux loss, grads set to None each iteration. Random input -> near-uniform routing unless sweep == 'skew'."
+}

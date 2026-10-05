@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "run_id": "20261005-012428_switch_s1338",
+  "experiment": "e1_main",
+  "config_name": "main",
+  "variant": "switch",
+  "seed": 1338,
+  "group": "switch",
+  "capacity_factor": 1.25,
+  "dispatch": "batched",
+  "overrides": [],
+  "status": "completed",
+  "started_at": "2026-10-05T01:24:28",
+  "finished_at": "2026-10-05T01:31:39",
+  "resumed_from_step": []
+}

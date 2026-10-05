@@ -1,0 +1,94 @@
+{
+  "schema_version": 1,
+  "run_id": "20261004-210408_profile",
+  "config_name": "smoke",
+  "created_at": "2026-10-04T21:04:08",
+  "d_model": 64,
+  "base_d_ff": 256,
+  "dtype": "fp32",
+  "device_label": "CPU",
+  "mode": "quick",
+  "warmup_iters": 3,
+  "repeats": 10,
+  "breakdown_repeats": 5,
+  "timer": "perf_counter",
+  "flops_model": {
+    "hidden_traffic": "unfused",
+    "include_autocast_weight_cast": false,
+    "dtype_bytes": 4,
+    "note": "compulsory traffic -> intensity is an upper bound"
+  },
+  "router_init": "random",
+  "plan": {
+    "mode": "quick",
+    "tokens": [
+      256,
+      1024
+    ],
+    "expert_tokens": 512,
+    "skew_tokens": [
+      512
+    ],
+    "cap_tokens": 512,
+    "switch_experts": [
+      4,
+      8,
+      16
+    ],
+    "deepseek_experts": [
+      8,
+      16
+    ],
+    "warmup": 3,
+    "repeats": 10,
+    "breakdown_repeats": 5,
+    "trace_iters": 2,
+    "gemm_size": 1024,
+    "copy_mib": 64,
+    "roof_repeats": 5,
+    "variants": [
+      "dense",
+      "switch",
+      "gshard",
+      "deepseek"
+    ],
+    "dispatch": [
+      "loop",
+      "batched"
+    ],
+    "passes": [
+      "fwd",
+      "fwd_bwd"
+    ],
+    "sweeps": [
+      "tokens",
+      "experts",
+      "capacity",
+      "skew",
+      "gemm",
+      "breakdown",
+      "trace",
+      "roofline"
+    ],
+    "cfs": [
+      0.75,
+      1.0,
+      1.25,
+      2.0
+    ],
+    "skew_strength": 0.3,
+    "trace_tokens": 1024
+  },
+  "experts_sweep_policy": "activated compute per token fixed at d_ff. switch: E experts of width d_ff, top-1 (total params grow with E, Switch Fig. 4). deepseek: fine-grained, total routed params 8*d_ff, width 8*d_ff/E, top-k=E/8, no shared expert.",
+  "skew_method": "x += mu, mu = pinv(W_r^T) @ (s * (z - mean z)), z_e = 1/(e+1): Zipf-shaped router-logit offset of strength s nats; realised imbalance is in each row's load_imbalance",
+  "gpu_state_policy": "queried after the first warmup and after the last timed loop of each group",
+  "trace_file": "smoke/e5_profile/20261004-210408_profile/profiler_trace.json",
+  "wall_time_s": 9.708385944366455,
+  "gpu_busy_before_run": null,
+  "other_gpu_processes": {
+    "start": null,
+    "end": null,
+    "note": "other CUDA processes seen by nvidia-smi (contention check); a job that started and ended mid-run is not detected"
+  },
+  "note": "Single FFN layer only (no attention/norm/residual). fwd = inference forward under no_grad in eval mode; fwd_bwd = train-mode forward + backward of y (random dy) and the aux loss, grads set to None each iteration. Random input -> near-uniform routing unless sweep == 'skew'."
+}

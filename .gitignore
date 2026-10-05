@@ -1,0 +1,21 @@
+# Environment / caches
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+# TinyStories tokens + tokenizer; rebuilt by `make data`
+data_cache/
+
+# Large or regenerable artifacts (not published)
+# model checkpoints (hundreds of MB each); retrain with `make main`
+*.pt
+# routing traces (tens of MB); regenerate with `make trace`
+results/*/traces/
+# Chrome profiler traces (large; contain local absolute paths); regenerate with `make profile`
+**/profiler_trace.json
+
+# Local tool settings
+.claude/settings.local.json
+
+# Private task specification (kept locally, not published)
+MASTER_PROMPT.md

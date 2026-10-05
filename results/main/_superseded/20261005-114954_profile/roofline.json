@@ -1,0 +1,204 @@
+{
+  "schema_version": 1,
+  "config_name": "main",
+  "device_label": "RTX 5070 Ti Laptop GPU",
+  "dtype": "bf16",
+  "ceilings": [
+    {
+      "kind": "spec",
+      "peak_tflops": 62.0,
+      "peak_gbps": 672.0,
+      "source": "NVIDIA GeForce RTX 50 Series Laptops spec page (AI TOPS 992, memory bandwidth 672 GB/s); BF16 ratio from NVIDIA RTX Blackwell GPU Architecture whitepaper v1.1 Appendix A-C tables",
+      "source_url": "https://www.nvidia.com/en-us/geforce/laptops/50-series/",
+      "source_url_ratio": "https://images.nvidia.com/aem-dam/Solutions/geforce/blackwell/nvidia-rtx-blackwell-gpu-architecture.pdf",
+      "notes": "Laptop SKU. peak_gbps = 672 GB/s is NVIDIA's published figure (192-bit GDDR7). peak_tflops is DERIVED, not printed by NVIDIA: dense BF16 tensor with FP32 accumulate (what PyTorch bf16 matmul uses) = AI TOPS / 16, because NVIDIA's 'AI TOPS' is FP4 with 2:4 sparsity, and in every GeForce Blackwell table of the whitepaper (RTX 5090 3352 -> 209.5, RTX 5080 1801 -> 112.6, RTX 5070 Ti 1406 -> 87.9, RTX 5070 987.8 -> 61.7) BF16-FP32-acc dense = FP4-sparse / 16. 992 / 16 = 62.0 TFLOP/s. Cross-check from clocks: 184 tensor cores x 128 dense BF16 FLOP/clk/TC (= 61.7e12 / (192 TC x 2512 MHz) for the desktop RTX 5070) x 2220 MHz (top of NVIDIA's laptop boost range) = 52.3 TFLOP/s; NVIDIA's 992 AI TOPS implies ~2.63 GHz, above that range, so the 62.0 figure is the optimistic one. Laptop TGP and clocks are OEM-configured (this machine reported a 120 W cap) and GPU Boost can exceed the listed boost clock, so treat the spec roof as approximate; the measured roof is the one to compare against. No sparsity.",
+      "alternatives": {
+        "bf16_dense_fp32acc_at_2220mhz_tflops": 52.3,
+        "bf16_dense_fp16acc_from_ai_tops_tflops": 124.0
+      }
+    },
+    {
+      "kind": "measured",
+      "peak_tflops": 57.46453497410504,
+      "peak_gbps": 481.2879087859626,
+      "method": "bf16 square GEMM, best median over sizes [4096, 6144, 8192] (30 repeats each); D2D copy of 1024 MiB (read+write counted) median of 30",
+      "gemm_shape": [
+        6144,
+        6144,
+        6144
+      ],
+      "gemm_all": [
+        {
+          "shape": [
+            4096,
+            4096,
+            4096
+          ],
+          "median_ms": 2.4418240785598755,
+          "p10_ms": 2.4402464628219604,
+          "p90_ms": 2.4452064037323,
+          "mean_ms": 2.440569607416789,
+          "tflops": 56.28536252007881
+        },
+        {
+          "shape": [
+            6144,
+            6144,
+            6144
+          ],
+          "median_ms": 8.089231967926025,
+          "p10_ms": 7.970339012145996,
+          "p90_ms": 8.234022045135498,
+          "mean_ms": 8.09844799041748,
+          "tflops": 57.342460916833716
+        },
+        {
+          "shape": [
+            8192,
+            8192,
+            8192
+          ],
+          "median_ms": 20.294639587402344,
+          "p10_ms": 19.20686779022217,
+          "p90_ms": 24.80887050628662,
+          "mean_ms": 21.308799997965494,
+          "tflops": 54.17744045371019
+        }
+      ],
+      "copy_bytes": 1073741824,
+      "repeats": 30,
+      "gemm_ms": {
+        "median_ms": 8.089231967926025,
+        "p10_ms": 7.970339012145996,
+        "p90_ms": 8.234022045135498,
+        "mean_ms": 8.09844799041748
+      },
+      "copy_ms": {
+        "median_ms": 4.461952209472656,
+        "p10_ms": 4.453657770156861,
+        "p90_ms": 4.466051006317139,
+        "mean_ms": 4.460872538884481
+      },
+      "device": "cuda",
+      "gpu_state_before": {
+        "sm_clock_mhz": 2445.0,
+        "mem_clock_mhz": 14126.0,
+        "temperature_c": 83.0,
+        "power_draw_w": 24.44,
+        "power_limit_w": null
+      },
+      "gpu_state_after": {
+        "sm_clock_mhz": 2002.0,
+        "mem_clock_mhz": 11126.0,
+        "temperature_c": 76.0,
+        "power_draw_w": 124.05,
+        "power_limit_w": null
+      },
+      "start": {
+        "peak_tflops": 57.342460916833716,
+        "peak_gbps": 481.2879087859626,
+        "gpu_state_before": {
+          "sm_clock_mhz": 2445.0,
+          "mem_clock_mhz": 14126.0,
+          "temperature_c": 83.0,
+          "power_draw_w": 24.44,
+          "power_limit_w": null
+        },
+        "gpu_state_after": {
+          "sm_clock_mhz": 2062.0,
+          "mem_clock_mhz": 11126.0,
+          "temperature_c": 82.0,
+          "power_draw_w": 85.84,
+          "power_limit_w": null
+        }
+      },
+      "end": {
+        "peak_tflops": 57.46453497410504,
+        "peak_gbps": 480.7397332949436,
+        "gpu_state_before": {
+          "sm_clock_mhz": 300.0,
+          "mem_clock_mhz": 9001.0,
+          "temperature_c": 67.0,
+          "power_draw_w": 14.97,
+          "power_limit_w": null
+        },
+        "gpu_state_after": {
+          "sm_clock_mhz": 2002.0,
+          "mem_clock_mhz": 11126.0,
+          "temperature_c": 76.0,
+          "power_draw_w": 124.05,
+          "power_limit_w": null
+        }
+      },
+      "note": "peak = max(start, end) measurement; see start/end for drift",
+      "power_state_changed": true
+    }
+  ],
+  "reference_gpus": [
+    {
+      "name": "Tesla T4",
+      "peak_tflops": 65.0,
+      "peak_gbps": 320.0,
+      "precision": "FP16 mixed (no BF16 support)",
+      "source": "NVIDIA T4 product page ('65 FP16 TFLOPS', '320+ GB/s')",
+      "source_url": "https://www.nvidia.com/en-us/data-center/tesla-t4/"
+    },
+    {
+      "name": "Tesla V100 SXM2",
+      "peak_tflops": 125.0,
+      "peak_gbps": 900.0,
+      "precision": "FP16 tensor (no BF16 support)",
+      "source": "NVIDIA V100 datasheet (Tensor Performance 125 TFLOPS, 900 GB/s)",
+      "source_url": "https://images.nvidia.com/content/technologies/volta/pdf/volta-v100-datasheet-update-us-1165301-r5.pdf"
+    },
+    {
+      "name": "A100 SXM 80GB",
+      "peak_tflops": 312.0,
+      "peak_gbps": 2039.0,
+      "precision": "BF16 tensor dense (624 with sparsity)",
+      "source": "NVIDIA A100 product page spec table",
+      "source_url": "https://www.nvidia.com/en-us/data-center/a100/"
+    },
+    {
+      "name": "H100 SXM",
+      "peak_tflops": 989.5,
+      "peak_gbps": 3350.0,
+      "precision": "BF16 tensor dense (page lists 1979 with sparsity; dense = 1979 / 2)",
+      "source": "NVIDIA H100 product page spec table",
+      "source_url": "https://www.nvidia.com/en-us/data-center/h100/"
+    },
+    {
+      "name": "GeForce RTX 3090",
+      "peak_tflops": 71.2,
+      "peak_gbps": 936.0,
+      "precision": "BF16 tensor dense, FP32 accumulate",
+      "source": "NVIDIA RTX Blackwell GPU Architecture whitepaper v1.1, Table 3",
+      "source_url": "https://images.nvidia.com/aem-dam/Solutions/geforce/blackwell/nvidia-rtx-blackwell-gpu-architecture.pdf"
+    },
+    {
+      "name": "GeForce RTX 4090",
+      "peak_tflops": 165.2,
+      "peak_gbps": 1008.0,
+      "precision": "BF16 tensor dense, FP32 accumulate",
+      "source": "NVIDIA RTX Blackwell GPU Architecture whitepaper v1.1, Table 3",
+      "source_url": "https://images.nvidia.com/aem-dam/Solutions/geforce/blackwell/nvidia-rtx-blackwell-gpu-architecture.pdf"
+    },
+    {
+      "name": "GeForce RTX 5090",
+      "peak_tflops": 209.5,
+      "peak_gbps": 1792.0,
+      "precision": "BF16 tensor dense, FP32 accumulate",
+      "source": "NVIDIA RTX Blackwell GPU Architecture whitepaper v1.1, Table 3",
+      "source_url": "https://images.nvidia.com/aem-dam/Solutions/geforce/blackwell/nvidia-rtx-blackwell-gpu-architecture.pdf"
+    },
+    {
+      "name": "GeForce RTX 5070 Ti (desktop, GB203; not this laptop)",
+      "peak_tflops": 87.9,
+      "peak_gbps": 896.0,
+      "precision": "BF16 tensor dense, FP32 accumulate",
+      "source": "NVIDIA RTX Blackwell GPU Architecture whitepaper v1.1, Table 5",
+      "source_url": "https://images.nvidia.com/aem-dam/Solutions/geforce/blackwell/nvidia-rtx-blackwell-gpu-architecture.pdf"
+    }
+  ],
+  "reference_note": "spec-sheet values (not measured here)"
+}

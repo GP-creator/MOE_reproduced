@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "run_id": "20261005-114040_switch_cf2_s1337",
+  "experiment": "e2_capacity",
+  "config_name": "main",
+  "variant": "switch",
+  "seed": 1337,
+  "group": "switch_cf2",
+  "capacity_factor": 2.0,
+  "dispatch": "batched",
+  "overrides": [],
+  "status": "completed",
+  "started_at": "2026-10-05T11:40:40",
+  "finished_at": "2026-10-05T11:48:36",
+  "resumed_from_step": []
+}

@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "run_id": "20261005-010747_dense_x8_s1337",
+  "experiment": "e1_main",
+  "config_name": "main",
+  "variant": "dense_x8",
+  "seed": 1337,
+  "group": "dense_x8",
+  "capacity_factor": null,
+  "dispatch": "batched",
+  "overrides": [],
+  "status": "completed",
+  "started_at": "2026-10-05T01:07:47",
+  "finished_at": "2026-10-05T01:19:53",
+  "resumed_from_step": []
+}

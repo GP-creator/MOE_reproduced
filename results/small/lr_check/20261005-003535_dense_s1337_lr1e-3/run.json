@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "run_id": "20261005-003535_dense_s1337_lr1e-3",
+  "experiment": "lr_check",
+  "config_name": "small",
+  "variant": "dense",
+  "seed": 1337,
+  "group": "dense_lr1e-3",
+  "capacity_factor": null,
+  "dispatch": "batched",
+  "overrides": [
+    "train.peak_lr=1e-3"
+  ],
+  "status": "completed",
+  "started_at": "2026-10-05T00:35:35",
+  "finished_at": "2026-10-05T00:36:09",
+  "resumed_from_step": []
+}

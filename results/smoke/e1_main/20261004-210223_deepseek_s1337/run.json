@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "run_id": "20261004-210223_deepseek_s1337",
+  "experiment": "e1_main",
+  "config_name": "smoke",
+  "variant": "deepseek",
+  "seed": 1337,
+  "group": "deepseek",
+  "capacity_factor": null,
+  "dispatch": "batched",
+  "overrides": [],
+  "status": "completed",
+  "started_at": "2026-10-04T21:02:23",
+  "finished_at": "2026-10-04T21:02:40",
+  "resumed_from_step": []
+}

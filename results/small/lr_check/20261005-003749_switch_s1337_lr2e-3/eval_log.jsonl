@@ -1,0 +1,11 @@
+{"step": 0, "tokens_seen": 0, "val_loss": 9.059662628173829, "val_ppl": 8601.248345611128, "val_aux_loss": 0.04483558721840382, "val_drop_fraction": 0.2782745361328125, "n_val_tokens": 81920}
+{"step": 150, "tokens_seen": 1228800, "val_loss": 3.7086395502090457, "val_ppl": 40.79826476389743, "val_aux_loss": 0.04118458852171898, "val_drop_fraction": 0.0784423828125, "n_val_tokens": 81920}
+{"step": 300, "tokens_seen": 2457600, "val_loss": 3.091723322868347, "val_ppl": 22.01498422979442, "val_aux_loss": 0.04113855697214604, "val_drop_fraction": 0.030572509765625002, "n_val_tokens": 81920}
+{"step": 450, "tokens_seen": 3686400, "val_loss": 2.7846809148788454, "val_ppl": 16.194649580519833, "val_aux_loss": 0.04132303930819035, "val_drop_fraction": 0.020382690429687503, "n_val_tokens": 81920}
+{"step": 600, "tokens_seen": 4915200, "val_loss": 2.5827412843704227, "val_ppl": 13.23336489944161, "val_aux_loss": 0.040772835910320285, "val_drop_fraction": 0.0110565185546875, "n_val_tokens": 81920}
+{"step": 750, "tokens_seen": 6144000, "val_loss": 2.4530558586120605, "val_ppl": 11.623813231068045, "val_aux_loss": 0.04060441888868809, "val_drop_fraction": 0.008572387695312501, "n_val_tokens": 81920}
+{"step": 900, "tokens_seen": 7372800, "val_loss": 2.354639434814453, "val_ppl": 10.534329864241409, "val_aux_loss": 0.04064517617225647, "val_drop_fraction": 0.006030273437500001, "n_val_tokens": 81920}
+{"step": 1050, "tokens_seen": 8601600, "val_loss": 2.282878684997559, "val_ppl": 9.80486494047959, "val_aux_loss": 0.0405222985893488, "val_drop_fraction": 0.005963134765625, "n_val_tokens": 81920}
+{"step": 1200, "tokens_seen": 9830400, "val_loss": 2.203473734855652, "val_ppl": 9.056418518174034, "val_aux_loss": 0.04066684134304524, "val_drop_fraction": 0.009533691406250001, "n_val_tokens": 81920}
+{"step": 1350, "tokens_seen": 11059200, "val_loss": 2.057328534126282, "val_ppl": 7.8250375420930665, "val_aux_loss": 0.040459285303950314, "val_drop_fraction": 0.0030761718750000003, "n_val_tokens": 81920}
+{"step": 1500, "tokens_seen": 12288000, "val_loss": 2.005961847305298, "val_ppl": 7.433240101389202, "val_aux_loss": 0.040411277487874035, "val_drop_fraction": 0.001654052734375, "n_val_tokens": 81920}
